@@ -48,63 +48,63 @@ describe('Donationss', function (){
                 });
         });
     });
-    describe('POST /donations', function () {
-        it('should return confirmation message and update datastore', function(done) {
-            var donation = {
-                paymenttype: 'Visa' ,
-                amount: 1200,
-                upvotes: 0
-            };
-            chai.request(server)
-                .post('/donations')
-                .send(donation)
-                .end(function(err, res) {
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.have.property('message').equal('Donation Added!!' ) ;
-                    done();
-                });
-        });
-        after(function  (done) {
-            chai.request(server)
-                .get('/donations')
-                .end(function(err, res) {
-                    expect(res).to.have.status(200);
-                    expect(res.body).be.be.a('array');
-                    var result = _.map(res.body, function (donation) {
-                        return { paymenttype: donation.paymenttype,
-                            amount: donation.amount };
-                    }  );
-                    expect(result).to.include( { paymenttype: 'Visa', amount: 1200  } );
-                    done();
-                });
-        });
-    });
+    // describe('POST /donations', function () {
+    //     it('should return confirmation message and update datastore', function(done) {
+    //         var donation = {
+    //             paymenttype: 'Visa' ,
+    //             amount: 1200,
+    //             upvotes: 0
+    //         };
+    //         chai.request(server)
+    //             .post('/donations')
+    //             .send(donation)
+    //             .end(function(err, res) {
+    //                 expect(res).to.have.status(200);
+    //                 expect(res.body).to.have.property('message').equal('Donation Added!!' ) ;
+    //                 done();
+    //             });
+    //     });
+    //     after(function  (done) {
+    //         chai.request(server)
+    //             .get('/donations')
+    //             .end(function(err, res) {
+    //                 expect(res).to.have.status(200);
+    //                 expect(res.body).be.be.a('array');
+    //                 var result = _.map(res.body, function (donation) {
+    //                     return { paymenttype: donation.paymenttype,
+    //                         amount: donation.amount };
+    //                 }  );
+    //                 expect(result).to.include( { paymenttype: 'Visa', amount: 1200  } );
+    //                 done();
+    //             });
+    //     });
+    // });
 
-    describe('PUT /donations/:id/votes', function () {
-        it('should return all donations with specified donation upvoted by 1', function(done) {
-            chai.request(server)
-                .put('/donations/1000001/votes')
-                .end(function(err, res) {
-                    expect(res).to.have.status(200);
-                    expect(res.body).be.be.a('array');
-                    var result = _.map(res.body, function (donation) {
-                        return { id: donation.id,
-                            upvotes: donation.upvotes };
-                    }  );
-                    expect(result).to.include( { id: 1000001, upvotes: 3  } );
-                    done();
-                });
-        });
-        it('should return a 404 status and message for invalid donation id', function(done) {
-            chai.request(server)
-                .put('/donations/1100001/votes')
-                .end(function(err, res) {
-                    expect(res).to.have.status(404);
-                    expect(res.body).to.have.property('message').equal('Invalid Donation Id!' ) ;
-                    done();
-                });
-        });
-
-    });
+    // describe('PUT /donations/:id/votes', function () {
+    //     it('should return all donations with specified donation upvoted by 1', function(done) {
+    //         chai.request(server)
+    //             .put('/donations/1000001/votes')
+    //             .end(function(err, res) {
+    //                 expect(res).to.have.status(200);
+    //                 expect(res.body).be.be.a('array');
+    //                 var result = _.map(res.body, function (donation) {
+    //                     return { id: donation.id,
+    //                         upvotes: donation.upvotes };
+    //                 }  );
+    //                 expect(result).to.include( { id: 1000001, upvotes: 3  } );
+    //                 done();
+    //             });
+    //     });
+    //     it('should return a 404 status and message for invalid donation id', function(done) {
+    //         chai.request(server)
+    //             .put('/donations/1100001/votes')
+    //             .end(function(err, res) {
+    //                 expect(res).to.have.status(404);
+    //                 expect(res.body).to.have.property('message').equal('Invalid Donation Id!' ) ;
+    //                 done();
+    //             });
+    //     });
+    //
+    // });
 
 });
