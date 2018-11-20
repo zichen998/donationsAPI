@@ -1,12 +1,14 @@
 dist: trusty
-  language: node_js
-  node_js:
-  - stable
-  branches:
-    only: development
-  notifications:
-    email:
-      recipients:
+language: node_js
+node_js:
+ - stable
+script:
+ - npm run coverage
+branches:
+only: development
+notifications:
+  email:
+    recipients:
       - 1242313097@qq.com
-      on_success: never
-      on_failure: always
+    on_success: never
+    on_failure: always
